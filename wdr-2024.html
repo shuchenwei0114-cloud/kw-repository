@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WDR 2024 | WDR Repository</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --card: #ffffff;
+        --ring: #d7e0e8;
+        --text: #1d2f42;
+        --muted: #667785;
+        --creation: #050505;
+        --preservation: #f86124;
+        --destruction: #263754;
+        --circle-size: 23%;
+        --circle-preservation-size: 28%;
+        --circle-destruction-size: 20%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        color: var(--text);
+      }
+
+      main {
+        min-height: 100vh;
+        padding: 22px 0 40px;
+      }
+
+      .page-shell {
+        width: min(1180px, 92vw);
+        margin: 0 auto;
+      }
+
+      .panel {
+        border: 1px solid var(--ring);
+        background: var(--card);
+        border-radius: 14px;
+      }
+
+      .core-panel {
+        padding: 18px;
+      }
+
+      .core-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .panel-title {
+        margin: 0 0 12px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .panel-grid {
+        margin-top: 14px;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .sub-panel {
+        min-height: 138px;
+        padding: 14px;
+      }
+
+      .sub-panel--transition {
+        grid-column: span 2;
+        min-height: auto;
+        padding: 10px;
+        overflow: hidden;
+      }
+
+      .transition-layout {
+        margin-top: 6px;
+        display: grid;
+        gap: 0;
+        grid-template-columns: minmax(340px, 1fr) minmax(520px, 10.5fr);
+        align-items: center;
+      }
+
+      .transition-text {
+        min-height: 200px;
+        padding: 12px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.4;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .transition-point {
+        margin: 0;
+        color: #445666;
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 1.38;
+      }
+
+      .transition-point strong {
+        color: #263754;
+        font-weight: 800;
+      }
+
+      .sub-panel h3 {
+        margin: 0;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .sub-panel p {
+        margin: 9px 0 0;
+        color: var(--muted);
+        font-size: 0.86rem;
+        line-height: 1.35;
+      }
+
+      .diagram-wrap {
+        width: 100%;
+        margin: 0;
+        overflow: visible;
+      }
+
+      .cp-zone {
+        padding-left: 0;
+      }
+
+      .diagram-board {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 900 / 400;
+        min-height: 235px;
+        overflow: visible;
+      }
+
+      .circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border: 0;
+        border-radius: 50%;
+        color: #ffffff;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(17, 34, 52, 0.22);
+        transition: box-shadow 240ms ease, filter 240ms ease, opacity 240ms ease;
+        width: var(--circle-size);
+        aspect-ratio: 1 / 1;
+        transform: translate(-50%, -50%) scale(1);
+        z-index: 2;
+      }
+
+      .diagram-board.has-focus .circle {
+        filter: saturate(0.55) contrast(0.86) brightness(0.9);
+        opacity: 0.72;
+      }
+
+      .diagram-board.has-focus .circle.is-focus {
+        box-shadow: 0 14px 28px rgba(17, 34, 52, 0.32);
+        filter: saturate(1) contrast(1) brightness(1);
+        opacity: 1;
+        z-index: 4;
+      }
+
+      .circle:focus-visible {
+        outline: 2px solid #3c74a6;
+        outline-offset: 3px;
+      }
+
+      .circle--creation {
+        top: 21%;
+        left: 40%;
+        background: var(--creation);
+      }
+
+      .circle--preservation {
+        top: 64%;
+        left: 60%;
+        width: var(--circle-preservation-size);
+        background: var(--preservation);
+      }
+
+      .circle--destruction {
+        top: 64%;
+        left: 26%;
+        width: var(--circle-destruction-size);
+        background: var(--destruction);
+      }
+
+      .circle-label {
+        width: 92%;
+        font-size: clamp(7px, 0.72vw, 10px);
+        line-height: 1.05;
+        letter-spacing: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: center;
+      }
+
+      .circle--preservation .circle-label {
+        width: 82%;
+        font-size: clamp(8px, 0.82vw, 11px);
+        white-space: nowrap;
+        overflow: visible;
+      }
+
+      @media (max-width: 760px) {
+        :root {
+          --circle-size: 24%;
+          --circle-preservation-size: 30%;
+          --circle-destruction-size: 21%;
+        }
+
+        .diagram-wrap {
+          width: 100%;
+        }
+
+        .transition-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .transition-text {
+          min-height: 110px;
+        }
+
+        .cp-zone {
+          padding-left: 0;
+        }
+
+        .panel-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .sub-panel--transition {
+          grid-column: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="page-shell">
+        <article class="panel core-panel">
+          <h2 class="panel-title">Core Theory</h2>
+          <p class="core-note">Core theory summary panel (text and framing will go here).</p>
+        </article>
+
+        <section class="panel-grid" aria-label="WDR 2024 framework panels">
+          <article class="panel sub-panel">
+            <h3>Diagnosis</h3>
+            <p>Panel reserved for problem diagnosis and key observations.</p>
+          </article>
+          <article class="panel sub-panel">
+            <h3>Mechanism</h3>
+            <p>Panel reserved for causal channels and explanatory mechanisms.</p>
+          </article>
+          <article class="panel sub-panel sub-panel--transition">
+            <h3>Transition Model</h3>
+            <div class="transition-layout">
+              <div class="transition-text" id="transition-text">
+                <p class="transition-point"><strong>Creation is weak:</strong> Large incumbents are slow to infuse or innovate,and too few small entrants disrupt</p>
+                <p class="transition-point"><strong>Preservation is the strongest:</strong> Incumbents are not tamed and capiture institutions to preserve the status quo</p>
+                <p class="transition-point"><strong>Disruption is kept weak:</strong> Outdated arrangements persist and exit barriers remain high</p>
+              </div>
+              <section class="diagram-wrap cp-zone" aria-label="Creation preservation destruction diagram">
+                <div class="diagram-board" role="img" aria-label="Three-force loop with interactive circles: creation, preservation, and destruction">
+                  <button type="button" class="circle circle--creation" data-force="creation">
+                    <span class="circle-label">Creation</span>
+                  </button>
+
+                  <button type="button" class="circle circle--preservation" data-force="preservation">
+                    <span class="circle-label">Preservation</span>
+                  </button>
+
+                  <button type="button" class="circle circle--destruction" data-force="destruction">
+                    <span class="circle-label">Destruction</span>
+                  </button>
+                </div>
+              </section>
+            </div>
+          </article>
+          <article class="panel sub-panel">
+            <h3>Constraint</h3>
+            <p>Panel reserved for bottlenecks that block movement and reform.</p>
+          </article>
+          <article class="panel sub-panel">
+            <h3>Strategy</h3>
+            <p>Panel reserved for policy actions and implementation sequence.</p>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const board = document.querySelector('.diagram-board');
+      const circles = document.querySelectorAll('.circle');
+      const transitionText = document.querySelector('#transition-text');
+      const defaultTransitionHTML = transitionText.innerHTML;
+      const creationHoverHTML = `
+        <p class="transition-point">
+          <strong>Rewarding merit activities</strong> &mdash; those with positive effects on general well-being and that aid in the efficient use of talent, capital, and energy &mdash; to strengthen the forces of creation
+        </p>
+      `;
+      const preservationHoverHTML = `
+        <p class="transition-point">
+          <strong>Disciplining incumbency</strong> to weaken the forces of preservation
+        </p>
+      `;
+      const disruptionHoverHTML = `
+        <p class="transition-point">
+          <strong>Capitalizing on crises</strong> to aid the destruction of outdated policies and institutions that are difficult to dislodge during boom times.
+        </p>
+      `;
+
+      const applyFocus = (targetCircle) => {
+        board.classList.add('has-focus');
+        circles.forEach((el) => el.classList.remove('is-focus'));
+        if (targetCircle) targetCircle.classList.add('is-focus');
+
+        if (targetCircle?.dataset.force === 'creation') {
+          transitionText.innerHTML = creationHoverHTML;
+        } else if (targetCircle?.dataset.force === 'preservation') {
+          transitionText.innerHTML = preservationHoverHTML;
+        } else if (targetCircle?.dataset.force === 'destruction') {
+          transitionText.innerHTML = disruptionHoverHTML;
+        } else {
+          transitionText.innerHTML = defaultTransitionHTML;
+        }
+      };
+
+      const clearFocus = () => {
+        board.classList.remove('has-focus');
+        circles.forEach((el) => el.classList.remove('is-focus'));
+        transitionText.innerHTML = defaultTransitionHTML;
+      };
+
+      circles.forEach((circle) => {
+        circle.addEventListener('mouseenter', () => {
+          applyFocus(circle);
+        });
+        circle.addEventListener('mouseleave', () => {
+          clearFocus();
+        });
+        circle.addEventListener('focus', () => {
+          applyFocus(circle);
+        });
+        circle.addEventListener('blur', clearFocus);
+      });
+
+      board.addEventListener('mousemove', (event) => {
+        if (!event.target.closest('.circle')) clearFocus();
+      });
+      board.addEventListener('mouseleave', clearFocus);
+    </script>
+  </body>
+</html>
