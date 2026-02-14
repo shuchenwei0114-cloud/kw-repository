@@ -30,6 +30,30 @@
         color: var(--text);
       }
 
+      .back-link {
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 30;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid #c8d4df;
+        background: rgba(255, 255, 255, 0.94);
+        color: #20344a;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background-color 180ms ease, border-color 180ms ease;
+      }
+
+      .back-link:hover {
+        background: #f1f6fb;
+        border-color: #9eb6c8;
+      }
+
       main {
         min-height: 100vh;
         padding: 22px 0 40px;
@@ -258,6 +282,7 @@
     </style>
   </head>
   <body>
+    <a class="back-link" href="index.html" aria-label="Back to main page">&larr; Back</a>
     <main>
       <section class="page-shell">
         <article class="panel core-panel">
