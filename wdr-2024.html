@@ -91,7 +91,7 @@
         margin-top: 14px;
         display: grid;
         gap: 12px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
 
       .sub-panel {
@@ -127,7 +127,7 @@
       }
 
       .sub-panel--transition {
-        grid-column: span 2;
+        grid-column: 1 / -1;
         min-height: auto;
         padding: 10px;
         overflow: hidden;
@@ -169,9 +169,10 @@
 
       .sub-panel h3 {
         margin: 0;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         text-transform: uppercase;
         letter-spacing: 0.04em;
+        white-space: nowrap;
       }
 
       .sub-panel p {
@@ -344,9 +345,7 @@
             <h3>Transition Model</h3>
             <div class="transition-layout">
               <div class="transition-text" id="transition-text">
-                <p class="transition-point"><strong>Creation is weak:</strong> Large incumbents are slow to infuse or innovate,and too few small entrants disrupt</p>
-                <p class="transition-point"><strong>Preservation is the strongest:</strong> Incumbents are not tamed and capiture institutions to preserve the status quo</p>
-                <p class="transition-point"><strong>Disruption is kept weak:</strong> Outdated arrangements persist and exit barriers remain high</p>
+                <p class="transition-point">Middle-income countries are hampered by an imbalance among the forces of creation, preservation, and destruction. The forces of creation are weak, the forces of preservation are strong, and destruction is held back by the forces of preservation.</p>
               </div>
               <section class="diagram-wrap cp-zone" aria-label="Creation preservation destruction diagram">
                 <div class="diagram-board" role="img" aria-label="Three-force loop with interactive circles: creation, preservation, and destruction">
@@ -384,17 +383,17 @@
       const defaultTransitionHTML = transitionText.innerHTML;
       const creationHoverHTML = `
         <p class="transition-point">
-          <strong>Rewarding merit activities</strong> &mdash; those with positive effects on general well-being and that aid in the efficient use of talent, capital, and energy &mdash; to strengthen the forces of creation
+          Creation is weak: Both incumbents and entrants can create value, but in many middle-income countries, large incumbents are slow to infuse or innovate, too few new entrants create or disrupt.
         </p>
       `;
       const preservationHoverHTML = `
         <p class="transition-point">
-          <strong>Disciplining incumbency</strong> to weaken the forces of preservation
+          Preservation is the strongest: In many middle-income countries, incumbents and elites use market power, policy influence, and social networks to preserve the status quo, limiting competition, restricting social mobility, and protecting outdated arrangements.
         </p>
       `;
       const disruptionHoverHTML = `
         <p class="transition-point">
-          <strong>Capitalizing on crises</strong> to aid the destruction of outdated policies and institutions that are difficult to dislodge during boom times.
+          Disruption is kept weak: Destruction is necessary to clear the way for creation by freeing up misallocated resources, but in many middle-income countries it is held back by preservation forces.
         </p>
       `;
 
