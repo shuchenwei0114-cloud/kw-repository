@@ -168,6 +168,78 @@
         margin-top: 6px;
       }
 
+      .growth-chart-panel {
+        padding: 16px;
+      }
+
+      .growth-chart-title {
+        margin: 0 0 12px;
+        font-size: 1.75rem;
+        line-height: 1.2;
+        color: #23242a;
+      }
+
+      .growth-chart-title .figure-label {
+        color: #b34d2f;
+        font-weight: 800;
+      }
+
+      .growth-chart-svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .axis-label {
+        fill: #2c2e34;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .axis-tick {
+        fill: #2c2e34;
+        font-size: 11px;
+      }
+
+      .grid-line {
+        stroke: #d6d6da;
+        stroke-width: 1;
+      }
+
+      .axis-line {
+        stroke: #2f3238;
+        stroke-width: 1.2;
+      }
+
+      .series-line {
+        fill: none;
+        stroke-width: 3.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .chart-legend {
+        margin-top: 10px;
+        display: grid;
+        gap: 8px 14px;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        font-size: 0.95rem;
+      }
+
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #2b3440;
+      }
+
+      .legend-swatch {
+        width: 22px;
+        height: 0;
+        border-top: 4px solid;
+        border-radius: 999px;
+      }
+
       .sub-panel--transition {
         grid-column: 1 / -1;
         min-height: auto;
@@ -384,6 +456,11 @@
               <li>Shrinking Spaces</li>
             </ul>
           </article>
+          <article class="panel sub-panel sub-panel--wide growth-chart-panel">
+            <h3 class="growth-chart-title"><span class="figure-label">Figure 1.5</span> Growth is expected to slow down as countries approach the economic frontier (United States)</h3>
+            <svg class="growth-chart-svg" id="growth-chart" viewBox="0 0 1100 560" role="img" aria-label="Animated growth slowdown line chart"></svg>
+            <div class="chart-legend" id="growth-chart-legend" aria-label="Chart legend"></div>
+          </article>
           <article class="panel sub-panel sub-panel--wide">
             <p class="transition-steps">1i: Investment &rarr; 2i: Investment + infusion &rarr; 3i: Investment + infusion + Innovation</p>
           </article>
@@ -474,6 +551,127 @@
         if (!event.target.closest('.circle')) clearFocus();
       });
       board.addEventListener('mouseleave', clearFocus);
+
+      const chartSvg = document.querySelector('#growth-chart');
+      const chartLegend = document.querySelector('#growth-chart-legend');
+
+      const growthSeries = [
+        { name: 'Argentina', color: '#2ea3a0', points: [[14, 0.2], [16, 0.35], [18, 0.6], [20, 1.0], [20.5, 1.6], [20.5, 2.2]] },
+        { name: 'Bangladesh', color: '#7f9336', points: [[3, 6.5], [4, 5.3], [6, 4.3], [8, 3.6], [9.5, 3.25], [11, 3.15], [13, 3.25], [16, 3.12], [20, 3.03]] },
+        { name: 'Bulgaria', color: '#ba4d2a', points: [[13, 0.55], [14.3, 0.72], [15.5, 1.2], [16, 1.8], [16, 2.45], [15.6, 3.0]] },
+        { name: 'Chile', color: '#2f7d8d', points: [[19, 0.45], [21, 0.6], [23, 0.8], [24.3, 1.2], [25.1, 1.8], [24.5, 2.7], [23, 3.6]] },
+        { name: 'China', color: '#eb6426', points: [[20, 5.2], [21, 5.05], [22, 4.2], [24, 3.8], [26, 3.0], [30, 2.8], [32, 2.4], [34, 2.95], [37, 3.05], [40, 2.9], [45, 2.35], [47.5, 2.2], [50.5, 3.0], [56, 3.0], [63, 2.9]] },
+        { name: 'India', color: '#bf7d24', points: [[5, 5.35], [6.4, 4.6], [8, 4.2], [10, 3.95], [12, 3.75], [14, 3.75], [18, 3.85], [22, 3.82], [26, 3.8]] },
+        { name: 'Indonesia', color: '#5c6898', points: [[7, 4.35], [8.5, 3.95], [10, 3.55], [12, 3.4], [16, 3.24], [20, 3.03], [24, 3.05], [29, 3.02]] },
+        { name: 'Mexico', color: '#eb6426', points: [[7.5, 0.08], [9.5, 0.2], [11.5, 0.45], [13.5, 0.82], [15.4, 1.25]] },
+        { name: 'Poland', color: '#31a09b', points: [[26.5, 5.35], [29, 4.65], [31, 4.45], [33, 4.45], [36, 4.2], [39, 3.95], [43, 3.45], [47, 3.05], [52, 3.1], [60, 3.5], [69, 3.78], [74, 3.76], [79, 3.58], [86, 3.62], [90, 3.56], [94, 3.35], [98, 3.38], [100, 3.36]] },
+        { name: 'Turkiye', color: '#9a9a9a', points: [[22.6, 2.65], [24.2, 2.35], [25.3, 2.08], [26.2, 1.78], [27.4, 1.86], [28.6, 1.92], [29.5, 1.76], [30, 1.52], [31.5, 1.7], [32, 1.72]] }
+      ];
+
+      const drawGrowthChart = () => {
+        if (!chartSvg || !chartLegend) return;
+
+        chartSvg.innerHTML = '';
+        chartLegend.innerHTML = '';
+
+        const width = 1100;
+        const height = 560;
+        const margin = { top: 30, right: 40, bottom: 90, left: 72 };
+        const innerW = width - margin.left - margin.right;
+        const innerH = height - margin.top - margin.bottom;
+
+        const xScale = (x) => margin.left + (x / 100) * innerW;
+        const yScale = (y) => margin.top + ((7 - y) / 7) * innerH;
+
+        for (let y = 0; y <= 7; y += 1) {
+          const yPx = yScale(y);
+          const grid = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          grid.setAttribute('x1', margin.left);
+          grid.setAttribute('x2', width - margin.right);
+          grid.setAttribute('y1', yPx);
+          grid.setAttribute('y2', yPx);
+          grid.setAttribute('class', 'grid-line');
+          chartSvg.appendChild(grid);
+
+          const tick = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          tick.setAttribute('x', margin.left - 14);
+          tick.setAttribute('y', yPx + 4);
+          tick.setAttribute('text-anchor', 'end');
+          tick.setAttribute('class', 'axis-tick');
+          tick.textContent = y === 0 ? '' : String(y);
+          chartSvg.appendChild(tick);
+        }
+
+        for (let x = 0; x <= 100; x += 10) {
+          const xPx = xScale(x);
+          const tick = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          tick.setAttribute('x', xPx);
+          tick.setAttribute('y', height - margin.bottom + 24);
+          tick.setAttribute('text-anchor', 'middle');
+          tick.setAttribute('class', 'axis-tick');
+          tick.textContent = String(x);
+          chartSvg.appendChild(tick);
+        }
+
+        const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        xAxis.setAttribute('x1', margin.left);
+        xAxis.setAttribute('x2', width - margin.right);
+        xAxis.setAttribute('y1', height - margin.bottom);
+        xAxis.setAttribute('y2', height - margin.bottom);
+        xAxis.setAttribute('class', 'axis-line');
+        chartSvg.appendChild(xAxis);
+
+        const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        yAxis.setAttribute('x1', margin.left);
+        yAxis.setAttribute('x2', margin.left);
+        yAxis.setAttribute('y1', margin.top);
+        yAxis.setAttribute('y2', height - margin.bottom);
+        yAxis.setAttribute('class', 'axis-line');
+        chartSvg.appendChild(yAxis);
+
+        const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        xLabel.setAttribute('x', margin.left + innerW / 2);
+        xLabel.setAttribute('y', height - 18);
+        xLabel.setAttribute('text-anchor', 'middle');
+        xLabel.setAttribute('class', 'axis-label');
+        xLabel.textContent = 'GDP per capita relative to the frontier (United States) (%)';
+        chartSvg.appendChild(xLabel);
+
+        const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        yLabel.setAttribute('transform', `translate(18 ${margin.top + innerH / 2}) rotate(-90)`);
+        yLabel.setAttribute('text-anchor', 'middle');
+        yLabel.setAttribute('class', 'axis-label');
+        yLabel.textContent = 'Annual growth in GDP per capita (%)';
+        chartSvg.appendChild(yLabel);
+
+        growthSeries.forEach((series, idx) => {
+          const d = series.points
+            .map((point, i) => `${i === 0 ? 'M' : 'L'} ${xScale(point[0]).toFixed(2)} ${yScale(point[1]).toFixed(2)}`)
+            .join(' ');
+
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', d);
+          path.setAttribute('class', 'series-line');
+          path.setAttribute('stroke', series.color);
+          chartSvg.appendChild(path);
+
+          const length = path.getTotalLength();
+          path.style.strokeDasharray = `${length}`;
+          path.style.strokeDashoffset = `${length}`;
+          path.style.animation = `draw-series 1.5s ease ${idx * 0.12}s forwards`;
+
+          const legendItem = document.createElement('div');
+          legendItem.className = 'legend-item';
+          legendItem.innerHTML = `<span class="legend-swatch" style="border-top-color:${series.color}"></span><span>${series.name}</span>`;
+          chartLegend.appendChild(legendItem);
+        });
+      };
+
+      const styleTag = document.createElement('style');
+      styleTag.textContent = `@keyframes draw-series { to { stroke-dashoffset: 0; } }`;
+      document.head.appendChild(styleTag);
+
+      drawGrowthChart();
     </script>
   </body>
 </html>
