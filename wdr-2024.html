@@ -172,18 +172,6 @@
         padding: 16px;
       }
 
-      .growth-chart-title {
-        margin: 0 0 12px;
-        font-size: 1.75rem;
-        line-height: 1.2;
-        color: #23242a;
-      }
-
-      .growth-chart-title .figure-label {
-        color: #b34d2f;
-        font-weight: 800;
-      }
-
       .growth-chart-svg {
         width: 100%;
         height: auto;
@@ -191,7 +179,7 @@
       }
 
       .growth-slot {
-        min-height: 380px;
+        min-height: 460px;
         display: none;
       }
 
@@ -234,9 +222,9 @@
       .chart-legend {
         margin-top: 10px;
         display: grid;
-        gap: 8px 14px;
+        gap: 6px 10px;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        font-size: 0.95rem;
+        font-size: 0.78rem;
       }
 
       .legend-item {
@@ -247,10 +235,31 @@
       }
 
       .legend-swatch {
-        width: 22px;
+        width: 16px;
         height: 0;
-        border-top: 4px solid;
+        border-top: 3px solid;
         border-radius: 999px;
+      }
+
+      .growth-insight-panel .split-panel {
+        grid-template-columns: minmax(260px, 0.8fr) minmax(560px, 1.4fr);
+      }
+
+      .series-line,
+      .legend-item {
+        transition: opacity 220ms ease, filter 220ms ease;
+      }
+
+      .series-line.is-dim,
+      .legend-item.is-dim {
+        opacity: 0.2;
+        filter: saturate(0.6);
+      }
+
+      .series-line.is-active,
+      .legend-item.is-active {
+        opacity: 1;
+        filter: saturate(1);
       }
 
       .sub-panel--transition {
@@ -461,7 +470,7 @@
           <article class="sub-panel sub-panel--wide trap-hero">
             <p class="center-statement">Middle-income countries are prone to systematic growth slowdowns&mdash;a concept termed the <strong>Middle-Income Trap</strong>.</p>
           </article>
-          <article class="panel sub-panel sub-panel--wide">
+          <article class="panel sub-panel sub-panel--wide growth-insight-panel">
             <h3>Middle-Income Countries Are Experiencing:</h3>
             <div class="split-panel">
               <section class="split-left">
@@ -669,6 +678,7 @@
           path.setAttribute('d', d);
           path.setAttribute('class', 'series-line');
           path.setAttribute('stroke', series.color);
+          path.dataset.series = series.name;
           chartSvg.appendChild(path);
 
           const length = path.getTotalLength();
@@ -678,8 +688,41 @@
 
           const legendItem = document.createElement('div');
           legendItem.className = 'legend-item';
+          legendItem.dataset.series = series.name;
           legendItem.innerHTML = `<span class="legend-swatch" style="border-top-color:${series.color}"></span><span>${series.name}</span>`;
           chartLegend.appendChild(legendItem);
+        });
+
+        const setSeriesFocus = (seriesName) => {
+          chartSvg.querySelectorAll('.series-line').forEach((lineEl) => {
+            const active = lineEl.dataset.series === seriesName;
+            lineEl.classList.toggle('is-active', active);
+            lineEl.classList.toggle('is-dim', !active);
+          });
+          chartLegend.querySelectorAll('.legend-item').forEach((itemEl) => {
+            const active = itemEl.dataset.series === seriesName;
+            itemEl.classList.toggle('is-active', active);
+            itemEl.classList.toggle('is-dim', !active);
+          });
+        };
+
+        const clearSeriesFocus = () => {
+          chartSvg.querySelectorAll('.series-line').forEach((lineEl) => {
+            lineEl.classList.remove('is-active', 'is-dim');
+          });
+          chartLegend.querySelectorAll('.legend-item').forEach((itemEl) => {
+            itemEl.classList.remove('is-active', 'is-dim');
+          });
+        };
+
+        chartSvg.querySelectorAll('.series-line').forEach((lineEl) => {
+          lineEl.addEventListener('mouseenter', () => setSeriesFocus(lineEl.dataset.series));
+          lineEl.addEventListener('mouseleave', clearSeriesFocus);
+        });
+
+        chartLegend.querySelectorAll('.legend-item').forEach((itemEl) => {
+          itemEl.addEventListener('mouseenter', () => setSeriesFocus(itemEl.dataset.series));
+          itemEl.addEventListener('mouseleave', clearSeriesFocus);
         });
       };
 
