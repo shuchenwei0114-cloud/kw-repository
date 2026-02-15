@@ -74,10 +74,23 @@
         padding: 18px;
       }
 
+      .core-hero {
+        border: 0;
+        background: transparent;
+        padding: 30px 10px 8px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+
       .core-note {
         margin: 0;
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 1.18rem;
+        line-height: 1.42;
+        max-width: 980px;
       }
 
       .panel-title {
@@ -124,6 +137,26 @@
         font-size: 1rem;
         font-weight: 700;
         letter-spacing: 0.01em;
+      }
+
+      .center-statement {
+        margin: 0;
+        color: #2a3f55;
+        font-size: 1.05rem;
+        line-height: 1.45;
+        text-align: center;
+      }
+
+      .stats-list {
+        margin: 12px 0 0;
+        padding-left: 20px;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .stats-list li + li {
+        margin-top: 6px;
       }
 
       .sub-panel--transition {
@@ -317,22 +350,23 @@
     <a class="back-link" href="index.html" aria-label="Back to main page">&larr; Back</a>
     <main>
       <section class="page-shell">
-        <article class="panel core-panel">
-          <h2 class="panel-title">Core Theory</h2>
+        <article class="core-panel core-hero">
           <p class="core-note">To escape middle income trap, countries must engineer two successive transitions &mdash; from investment to infusion, and from infusion to innovation.</p>
           <p class="core-note">Success depends on how well they balance creation, destruction, and preservation &mdash; using capital, talent, and energy more efficiently than ever before.</p>
         </article>
 
         <section class="panel-grid" aria-label="WDR 2024 framework panels">
           <article class="panel sub-panel sub-panel--wide">
-            <div class="split-panel">
-              <section class="split-left">
-                <h3>Why Middle-Income Countries Matter &mdash; And Why the Moment Is Critical</h3>
-                <p><strong>A. Importance</strong><br />Home to 6 billion people<br />40% of global GDP<br />60% of extreme poverty<br />~60% of global carbon emissions<br />The global fight against poverty and climate change will be won or lost here</p>
-                <p><strong>B. The Warning</strong><br />Growth is systematically slowing in middle-income countries<br />Income convergence with the frontier has stalled<br />Fewer countries have transitioned to high income than expected<br />Headwinds are intensifying (debt, aging, trade fragmentation, climate pressures)</p>
-              </section>
-              <section class="split-right" aria-label="Reserved blank area"></section>
-            </div>
+            <h3>Today's 108 middle-income countries</h3>
+            <ul class="stats-list">
+              <li>Represent about <strong>40 percent</strong> of global output</li>
+              <li>House roughly <strong>75 percent</strong> of the world&rsquo;s population</li>
+              <li>Account for more than <strong>60 percent</strong> of global poverty</li>
+              <li>Produce nearly <strong>2/3</strong> of global carbon dioxide emissions</li>
+            </ul>
+          </article>
+          <article class="panel sub-panel sub-panel--wide">
+            <p class="center-statement">Middle-income countries are prone to systematic growth slowdowns&mdash;a concept termed the <strong>Middle-Income Trap</strong>.</p>
           </article>
           <article class="panel sub-panel sub-panel--wide">
             <p class="transition-steps">1i: Investment &rarr; 2i: Investment + infusion &rarr; 3i: Investment + infusion + Innovation</p>
