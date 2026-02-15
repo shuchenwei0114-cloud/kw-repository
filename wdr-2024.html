@@ -267,21 +267,24 @@
       }
 
       .growth-chart-svg {
-        width: 100%;
+        width: 86%;
+        max-width: 860px;
         height: auto;
         display: block;
+        margin: 0 auto;
       }
 
       .growth-chart-inline-title {
         margin: 0 0 10px;
         color: #23242a;
-        font-size: 1.02rem;
+        font-size: 1.18rem;
         line-height: 1.25;
         font-weight: 700;
+        text-align: center;
       }
 
       .growth-slot {
-        min-height: 460px;
+        min-height: 410px;
         display: block;
       }
 
@@ -291,13 +294,13 @@
 
       .axis-label {
         fill: #2c2e34;
-        font-size: 13px;
+        font-size: 16px;
         font-weight: 600;
       }
 
       .axis-tick {
         fill: #2c2e34;
-        font-size: 11px;
+        font-size: 14px;
       }
 
       .grid-line {
@@ -322,7 +325,10 @@
         display: grid;
         gap: 6px 10px;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        font-size: 0.78rem;
+        font-size: 0.96rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .legend-item {
@@ -333,9 +339,9 @@
       }
 
       .legend-swatch {
-        width: 16px;
+        width: 20px;
         height: 0;
-        border-top: 3px solid;
+        border-top: 4px solid;
         border-radius: 999px;
       }
 
