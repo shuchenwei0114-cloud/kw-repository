@@ -282,10 +282,6 @@
 
       .growth-slot {
         min-height: 460px;
-        display: none;
-      }
-
-      .growth-slot.is-visible {
         display: block;
       }
 
@@ -719,9 +715,6 @@
 
       const chartSvg = document.querySelector('#growth-chart');
       const chartLegend = document.querySelector('#growth-chart-legend');
-      const growthSlot = document.querySelector('#growth-slot');
-      const slowerGrowthTrigger = document.querySelector('#slower-growth-trigger');
-
       const growthSeries = [
         { name: 'Bangladesh', color: '#7f9336', points: [[3, 6.5], [4, 5.3], [6, 4.3], [8, 3.6], [9.5, 3.25], [11, 3.15], [13, 3.25], [16, 3.12], [20, 3.03]] },
         { name: 'China', color: '#eb6426', points: [[20, 5.2], [21, 5.05], [22, 4.2], [24, 3.8], [26, 3.0], [30, 2.8], [32, 2.4], [34, 2.95], [37, 3.05], [40, 2.9], [45, 2.35], [47.5, 2.2], [50.5, 3.0], [56, 3.0], [63, 2.9]] },
@@ -868,15 +861,7 @@
       styleTag.textContent = `@keyframes draw-series { to { stroke-dashoffset: 0; } }`;
       document.head.appendChild(styleTag);
 
-      if (slowerGrowthTrigger && growthSlot) {
-        slowerGrowthTrigger.addEventListener('mouseenter', () => {
-          growthSlot.classList.add('is-visible');
-          drawGrowthChart();
-        });
-        slowerGrowthTrigger.addEventListener('mouseleave', () => {
-          growthSlot.classList.remove('is-visible');
-        });
-      }
+      drawGrowthChart();
     </script>
   </body>
 </html>
