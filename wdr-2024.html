@@ -99,6 +99,33 @@
         padding: 14px;
       }
 
+      .sub-panel--wide {
+        grid-column: 1 / -1;
+      }
+
+      .split-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 14px;
+        align-items: stretch;
+      }
+
+      .split-left {
+        min-height: 220px;
+      }
+
+      .split-right {
+        min-height: 220px;
+      }
+
+      .transition-steps {
+        margin: 0;
+        color: #20344a;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
       .sub-panel--transition {
         grid-column: span 2;
         min-height: auto;
@@ -275,6 +302,10 @@
           grid-template-columns: 1fr;
         }
 
+        .split-panel {
+          grid-template-columns: 1fr;
+        }
+
         .sub-panel--transition {
           grid-column: auto;
         }
@@ -292,10 +323,18 @@
         </article>
 
         <section class="panel-grid" aria-label="WDR 2024 framework panels">
-          <article class="panel sub-panel">
-            <h3>Why Middle-Income Countries Matter &mdash; And Why the Moment Is Critical</h3>
-            <p><strong>A. Importance</strong><br />Home to 6 billion people<br />40% of global GDP<br />60% of extreme poverty<br />~60% of global carbon emissions<br />The global fight against poverty and climate change will be won or lost here</p>
-            <p><strong>B. The Warning</strong><br />Growth is systematically slowing in middle-income countries<br />Income convergence with the frontier has stalled<br />Fewer countries have transitioned to high income than expected<br />Headwinds are intensifying (debt, aging, trade fragmentation, climate pressures)</p>
+          <article class="panel sub-panel sub-panel--wide">
+            <div class="split-panel">
+              <section class="split-left">
+                <h3>Why Middle-Income Countries Matter &mdash; And Why the Moment Is Critical</h3>
+                <p><strong>A. Importance</strong><br />Home to 6 billion people<br />40% of global GDP<br />60% of extreme poverty<br />~60% of global carbon emissions<br />The global fight against poverty and climate change will be won or lost here</p>
+                <p><strong>B. The Warning</strong><br />Growth is systematically slowing in middle-income countries<br />Income convergence with the frontier has stalled<br />Fewer countries have transitioned to high income than expected<br />Headwinds are intensifying (debt, aging, trade fragmentation, climate pressures)</p>
+              </section>
+              <section class="split-right" aria-label="Reserved blank area"></section>
+            </div>
+          </article>
+          <article class="panel sub-panel sub-panel--wide">
+            <p class="transition-steps">1i: Investment &rarr; 2i: Investment + infusion &rarr; 3i: Investment + infusion + Innovation</p>
           </article>
           <article class="panel sub-panel">
             <h3>Mechanism</h3>
