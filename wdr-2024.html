@@ -188,12 +188,16 @@
         display: grid;
         grid-template-columns: minmax(300px, 1fr) minmax(320px, 1fr);
         gap: 14px;
-        align-items: start;
+        align-items: stretch;
       }
 
       .share-wrap {
         padding: 4px 6px;
         max-width: 430px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
       }
 
       .share-title {
@@ -206,7 +210,7 @@
 
       .pie-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        grid-template-columns: repeat(4, minmax(84px, 1fr));
         gap: 8px;
       }
 
@@ -215,8 +219,8 @@
       }
 
       .pie {
-        width: 98px;
-        height: 98px;
+        width: 84px;
+        height: 84px;
         margin: 0 auto 6px;
         border-radius: 50%;
         border: 2px solid #f1f4f8;
@@ -226,7 +230,7 @@
       .pie-label {
         margin: 0;
         color: #1d2430;
-        font-size: 0.73rem;
+        font-size: 0.68rem;
         font-weight: 500;
         line-height: 1.2;
       }
