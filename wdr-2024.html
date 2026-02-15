@@ -169,31 +169,31 @@
       }
 
       .metric-pop {
-        color: #f26a2f;
+        color: #ff7a00;
       }
 
       .metric-gdp {
-        color: #ea5f2a;
+        color: #8e44ad;
       }
 
       .metric-poverty {
-        color: #f0642a;
+        color: #16a34a;
       }
 
       .metric-co2 {
-        color: #e95a24;
+        color: #e11d48;
       }
 
       .first-panel-layout {
         display: grid;
-        grid-template-columns: minmax(300px, 1fr) minmax(320px, 1fr);
+        grid-template-columns: minmax(300px, 1fr) minmax(460px, 1.1fr);
         gap: 14px;
         align-items: stretch;
       }
 
       .share-wrap {
         padding: 4px 6px;
-        max-width: 430px;
+        max-width: 560px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -210,8 +210,8 @@
 
       .pie-grid {
         display: grid;
-        grid-template-columns: repeat(4, minmax(84px, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(4, minmax(96px, 1fr));
+        gap: 10px;
       }
 
       .pie-item {
@@ -219,8 +219,8 @@
       }
 
       .pie {
-        width: 84px;
-        height: 84px;
+        width: 90px;
+        height: 90px;
         margin: 0 auto 6px;
         border-radius: 50%;
         border: 2px solid #f1f4f8;
@@ -230,9 +230,10 @@
       .pie-label {
         margin: 0;
         color: #1d2430;
-        font-size: 0.68rem;
+        font-size: 0.62rem;
         font-weight: 500;
         line-height: 1.2;
+        white-space: nowrap;
       }
 
       .share-legend {
@@ -568,9 +569,9 @@
               <section>
                 <h3>Today's 108 middle-income countries</h3>
                 <ul class="stats-list">
-                  <li>Represent about <strong class="metric-gdp">40 percent</strong> of global output</li>
-                  <li>House roughly <strong class="metric-pop">75 percent</strong> of the world&rsquo;s population</li>
-                  <li>Account for more than <strong class="metric-poverty">60 percent</strong> of global poverty</li>
+                  <li>Represent about <strong class="metric-gdp">40%</strong> of global output</li>
+                  <li>House roughly <strong class="metric-pop">75%</strong> of the world&rsquo;s population</li>
+                  <li>Account for more than <strong class="metric-poverty">60%</strong> of global poverty</li>
                   <li>Produce nearly <strong class="metric-co2">2/3</strong> of global carbon dioxide emissions</li>
                 </ul>
               </section>
@@ -578,25 +579,25 @@
                 <p class="share-title">Share of</p>
                 <div class="pie-grid">
                   <article class="pie-item">
-                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 32deg, #f26a2f 32deg 303deg, rgba(13,86,129,0.45) 303deg 360deg);"></div>
+                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 32deg, #ff7a00 32deg 303deg, rgba(13,86,129,0.45) 303deg 360deg);"></div>
                     <p class="pie-label">Population</p>
                   </article>
                   <article class="pie-item">
-                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 2deg, #ea5f2a 2deg 141deg, rgba(13,86,129,0.45) 141deg 360deg);"></div>
+                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 2deg, #8e44ad 2deg 141deg, rgba(13,86,129,0.45) 141deg 360deg);"></div>
                     <p class="pie-label">GDP</p>
                   </article>
                   <article class="pie-item">
-                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 131deg, #f0642a 131deg 356deg, rgba(13,86,129,0.45) 356deg 360deg);"></div>
+                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 131deg, #16a34a 131deg 356deg, rgba(13,86,129,0.45) 356deg 360deg);"></div>
                     <p class="pie-label">Population in extreme poverty</p>
                   </article>
                   <article class="pie-item">
-                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 1deg, #e95a24 1deg 240deg, rgba(13,86,129,0.45) 240deg 360deg);"></div>
+                    <div class="pie" style="background: conic-gradient(rgba(76,159,211,0.45) 0deg 1deg, #e11d48 1deg 240deg, rgba(13,86,129,0.45) 240deg 360deg);"></div>
                     <p class="pie-label">CO₂ Emissions</p>
                   </article>
                 </div>
                 <div class="share-legend">
                   <span class="share-key"><span class="share-swatch" style="background:rgba(76,159,211,0.45)"></span>Low income</span>
-                  <span class="share-key"><span class="share-swatch" style="background:linear-gradient(90deg, #f26a2f 0%, #ea5f2a 35%, #f0642a 70%, #e95a24 100%)"></span>Middle income</span>
+                  <span class="share-key"><span class="share-swatch" style="background:linear-gradient(90deg, #ff7a00 0%, #8e44ad 35%, #16a34a 70%, #e11d48 100%)"></span>Middle income</span>
                   <span class="share-key"><span class="share-swatch" style="background:rgba(13,86,129,0.45)"></span>High income</span>
                 </div>
               </section>
